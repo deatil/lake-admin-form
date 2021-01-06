@@ -1,0 +1,63 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="admin-main layui-anim layui-anim-upbit" ng-app="hd" ng-controller="ctrl">
+	<div class="layui-card">
+        <div class="layui-card-header layui-bg-cyan">
+			数据详情
+		</div>
+        <div class="layui-card-body">
+            <table class="layui-table">
+				<colgroup>
+					<col width="150">
+					<col>
+					<col width="350">
+				<col>
+				</colgroup>			
+                <thead>
+					<tr>
+						<th>名称</th>
+						<th>内容</th>
+					</tr>
+                </thead>
+                <tbody>
+					<tr>
+						<td style="text-align: right;">ID</td>
+						<td>{$info['id']}</td>
+					</tr>
+					
+					{volist name="form_attrs" id="attr"}
+						{if isset($info[$attr['name']]) && in_array($attr['name'], $form_attr_names)}
+							<tr>
+								<td style="text-align: right;">{$form_attrs[$attr['name']]['title']}</td>					
+								<td>
+									{if $attr['type'] == 'datetime'}
+										{:date('Y-m-d H:i:s', $info[$attr['name']])}
+									{else /}
+										{$info[$attr['name']]}
+									{/if}
+								</td>
+							</tr>
+						{/if}
+					{/volist}
+					
+					<tr>
+						<td style="text-align: right;">状态</td>
+						<td>
+							{if $info['status'] == 1}
+								<span class='layui-badge-dot layui-bg-green'></span>
+								<span class='text-green'>启用</span>
+							{else/}
+								<span class='layui-badge-dot layui-bg-orange'></span>
+								<span class='text-orange'>禁用</span>
+							{/if}
+						</td>
+					</tr>			
+                </tbody>
+            </table>
+        </div>
+    </div>
+	
+</div>
+
+{/block}

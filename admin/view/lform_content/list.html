@@ -1,0 +1,46 @@
+{extend name="$lake_admin_layout"/}
+
+{block name="main"}
+<div class="layui-card">
+    <div class="layui-card-header layui-bg-cyan">表单内容列表</div>
+    <div class="layui-card-body">
+        <table class="layui-hide" id="table" lay-filter="table"></table>
+    </div>
+</div>
+{/block}
+{block name="script"}
+<script type="text/html" id="topToolbar">
+    <div class="layui-btn-container">
+        <a class="layui-btn layui-btn-sm" type="button" href="{:url('LformContent/index')}?form_id={$form_id}"><i class="iconfont icon-undo"></i>&nbsp;返回表单</a>
+    </div>
+</script>
+<script type="text/html" id="actionTool">
+	<a href='{:url("LformContent/detail")}?form_id={$form_id}&id={{ d.id }}' class="layui-btn layui-btn-xs layui-iframe" title="数据详情">详情</a>
+	<a href='{:url("LformContent/delete")}?form_id={$form_id}&id={{ d.id }}' class="layui-btn layui-btn-danger layui-btn-xs layui-tr-del">删除</a>
+</script>
+<script>
+layui.use('table', function() {
+    var table = layui.table,
+        $ = layui.$,
+        form = layui.form;
+    table.render({
+        elem: '#table',
+        toolbar: '#topToolbar',
+        url: '{:url("list", ["form_id" => $form_id])}',
+        cols: [
+            [
+                { fixed: 'left', field: 'id', title: 'ID', align: 'center', width: 60 },
+				
+				{volist name="grid['grids']" id="vo"}
+					{if in_array($vo['field'][0], $form_attrs)}
+						{ field: '{$vo['field'][0]}', title: '{$vo['title']}' },
+					{/if}
+				{/volist}
+				
+                { fixed: 'right', width: 120, title: '操作', templet: '#actionTool' }
+            ]
+        ]
+    });
+});
+</script>
+{/block}
