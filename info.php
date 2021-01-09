@@ -17,8 +17,6 @@ return array(
     'version' => '2.0.2',
     // 适配最低lcms版本[必填]
     'adaptation' => '2.0.2',
-    // 签名[必填]
-    'sign' => 'a7fd9e2e76fb7283781d5e409a5f8062',
     
     // 依赖模块
     'need_module' => [],
@@ -28,10 +26,4 @@ return array(
     
     // 菜单
     'menus' => include __DIR__ . '/menu.php',
-    
-    // 数据表
-    'tables' => [
-        'lform',
-        'lform_attr',
-    ],
 );

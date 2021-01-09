@@ -12,6 +12,7 @@ use app\lform\model\FormAttr as FormAttrModel;
 
 use app\lform\service\Datatable;
 
+use Lake\Admin\Model\FieldType as FieldTypeModel;
 use Lake\Module\Controller\HomeBase;
 
 /**
@@ -98,8 +99,7 @@ class Index extends HomeBase
             ->toArray();
             
         // 字段规则
-        $fieldRule = Db::name('field_type')
-            ->column('vrule,pattern', 'name');
+        $fieldRule = FieldTypeModel::column('vrule,pattern', 'name');
     
         if (!empty($form_rule_attrs)) {
             foreach ($form_rule_attrs as $item) {

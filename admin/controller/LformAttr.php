@@ -5,6 +5,8 @@ namespace app\admin\controller;
 use think\facade\Db;
 use think\facade\View;
 
+use Lake\Admin\Model\FieldType as FieldTypeModel;
+
 use app\lform\service\Datatable;
 
 use app\lform\model\Form as FormModel;
@@ -80,7 +82,7 @@ class LformAttr extends LformBase
      */
     public function index($form_id = '') 
     {
-        if ($this->request->isAjax()) {                
+        if ($this->request->isAjax()) {
             $limit = $this->request->param('limit/d', 20);
             $page = $this->request->param('page/d', 1);
             $map = $this->buildparams();
@@ -146,8 +148,7 @@ class LformAttr extends LformBase
             $info = [
                 'form_id'   => $form_id
             ];
-            $fieldType = Db::name('field_type')
-                ->order('listorder')
+            $fieldType = FieldTypeModel::order('listorder')
                 ->column('name,title,default_define,ifoption,ifstring');
             $data = [
                 'data'   => $info,
@@ -194,8 +195,7 @@ class LformAttr extends LformBase
                     'id' => $id,
                 ])
                 ->find();
-            $fieldType = Db::name('field_type')
-                ->order('listorder')
+            $fieldType = FieldTypeModel::order('listorder')
                 ->column('name,title,default_define,ifoption,ifstring');
             $data = [
                 'data' => $info,
