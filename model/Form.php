@@ -42,21 +42,20 @@ class Form extends Model
         $fields = self::$fields;
         $data = $event->toArray();
         $tablename = strtolower($data['name']);
-        //实例化一个数据库操作类
+        
         $db = new Datatable('lform_ext_');
-        //检查表是否存在并创建
-        if (!$db->CheckTable($tablename)) {
-            //创建新表
-            return $db->createTable($tablename, $data['title'], 'id')->query();
-        }else{
+        if ($db->CheckTable($tablename)) {
             return false;
         }
+        
+        return $db->createTable($tablename, $data['title'], 'id')->query();
     }
     
     public static function onAfterInsert($event)
     {
         $data = $event->toArray();
         
+        $fields = self::$fields;
         if (!empty($fields)) {
             foreach ($fields as $key => $value) {
                 if (in_array($key, array('uid', 'status', 'view', 'create_time', 'update_time'))) {

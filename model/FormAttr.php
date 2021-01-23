@@ -33,26 +33,30 @@ class FormAttr extends Model
             $db = new Datatable('lform_ext_');
             $attr = $data->toArray();
             $types = (new FieldType())->getFieldTypeList();
-            return $db->setTypeAlist($types)->columField(strtolower($name), $attr)->query();
+            return $db->setTypeAlist($types)
+                ->columField(strtolower($name), $attr)
+                ->query();
         }
     }
     
     public static function onBeforeUpdate($data)
     {
         $attr = $data->toArray();
-        $attr['action'] = 'CHANGE';
-        $attr['oldname'] = Db::name('lform_attr')->where('id', $attr['id'])->value('name');
-        if ($attr['id']) {
-            $name = Db::name('lform')->where('id', $attr['form_id'])->value('name');
-            $db = new Datatable('lform_ext_');
-            $types = (new FieldType())->getFieldTypeList();
-            return $db->setTypeAlist($types)->columField(strtolower($name), $attr)->query();
-        }else{
+        if (! $attr['id']) {
             return false;
         }
+        
+        $attr['action'] = 'CHANGE';
+        $attr['oldname'] = Db::name('lform_attr')->where('id', $attr['id'])->value('name');
+        
+        $name = Db::name('lform')->where('id', $attr['form_id'])->value('name');
+        $db = new Datatable('lform_ext_');
+        $types = (new FieldType())->getFieldTypeList();
+        return $db->setTypeAlist($types)->columField(strtolower($name), $attr)->query();
     }
 
-    public function getFieldlist($map,$index='id'){
+    public function getFieldlist($map, $index = 'id')
+    {
         $list = array();
         $row = $this->field('*,remark as help,type,extra as "option"')
             ->where($map)
@@ -60,7 +64,7 @@ class FormAttr extends Model
             ->select()
             ->toArray();
         foreach ($row as $key => $value) {
-            if (in_array($value['type'],array('checkbox','radio','select','bool'))) {
+            if (in_array($value['type'], array('checkbox','radio','select','bool'))) {
                 $value['option'] = lform_parse_field_attr($value['extra']);
             } elseif ($value['type'] == 'bind') {
                 $extra = lform_parse_field_bind($value['extra']);
@@ -85,25 +89,27 @@ class FormAttr extends Model
             ])
             ->value('name');
 
-        //先删除字段表内的数据
+        // 先删除字段表内的数据
         $result = $this->where($map)->delete();
-        if ($result) {
-            $tablename = strtolower($tablename);
-            //删除模型表中字段
-            $db = new Datatable('lform_ext_');
-            if (!$db->CheckField($tablename, $info['name'])) {
-                return true;
-            }
-            $result = $db->delField($tablename, $info['name'])->query();
-            if ($result) {
-                return true;
-            }else{
-                $this->error = "删除失败！";
-                return false;
-            }
-        }else{
+        if ($result === false) {
             $this->error = "删除失败！";
             return false;
         }
+        
+        $tablename = strtolower($tablename);
+        
+        // 删除模型表中字段
+        $db = new Datatable('lform_ext_');
+        if (! $db->CheckField($tablename, $info['name'])) {
+            return true;
+        }
+        
+        $result = $db->delField($tablename, $info['name'])->query();
+        if ($result === false) {
+            $this->error = "删除失败！";
+            return false;
+        }
+        
+        return true;
     }
 }

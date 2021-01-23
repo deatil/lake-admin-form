@@ -11,8 +11,10 @@ use app\lform\model\Form as FormModel;
 use app\lform\model\FormAttr as FormAttrModel;
 
 /**
- * @title 自定义表单
- * @description 自定义表单
+ * 自定义表单
+ *
+ * @create 2019-11-3
+ * @author deatil
  */
 class LformContent extends LformBase 
 {
@@ -29,9 +31,6 @@ class LformContent extends LformBase
     
     /**
      * 框架初始化
-     *
-     * @create 2019-11-3
-     * @author deatil
      */
     public function initialize() 
     {
@@ -43,10 +42,7 @@ class LformContent extends LformBase
     }
 
     /**
-     * @title 表单列表
-     *
-     * @create 2019-11-6
-     * @author deatil
+     * 表单列表
      */
     public function index() 
     {
@@ -78,14 +74,7 @@ class LformContent extends LformBase
     }
     
     /**
-     * @title       数据列表
-     * @description 表单数据
-     * @Author      molong
-     * @DateTime    2017-06-30
-     * @return      html        页面
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 数据列表
      */
     public function list($form_id = '') 
     {
@@ -171,10 +160,7 @@ class LformContent extends LformBase
     }
 
     /**
-     * @title 数据详情
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 数据详情
      */
     public function detail($form_id = '', $id = '')
     {
@@ -215,10 +201,7 @@ class LformContent extends LformBase
     }
 
     /**
-     * @title 删除数据
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 删除数据
      */
     public function delete($form_id = '', $id = '')
     {

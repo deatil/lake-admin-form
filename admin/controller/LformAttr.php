@@ -13,8 +13,7 @@ use app\lform\model\Form as FormModel;
 use app\lform\model\FormAttr as FormAttrModel;
 
 /**
- * @title 字段管理
- * @description 自定义表单字段管理
+ * 字段管理
  *
  * @create 2019-11-5
  * @author deatil
@@ -37,9 +36,6 @@ class LformAttr extends LformBase
     
     /**
      * 框架初始化
-     *
-     * @create 2019-11-3
-     * @author deatil
      */
     public function initialize() 
     {
@@ -75,10 +71,7 @@ class LformAttr extends LformBase
     }
 
     /**
-     * @title 表单字段
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 表单字段
      */
     public function index($form_id = '') 
     {
@@ -123,11 +116,7 @@ class LformAttr extends LformBase
     }
 
     /**
-     * @title 添加字段
-     * @description 添加表单字段
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 添加字段
      */
     public function add()
     {
@@ -162,10 +151,7 @@ class LformAttr extends LformBase
     }
 
     /**
-     * @title 编辑表单字段
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 编辑表单字段
      */
     public function edit()
     {
@@ -209,10 +195,7 @@ class LformAttr extends LformBase
     }
 
     /**
-     * @title 删除表单字段
-     *
-     * @create 2019-11-3
-     * @author deatil
+     * 删除表单字段
      */
     public function delete()
     {
@@ -261,10 +244,7 @@ class LformAttr extends LformBase
     }
     
     /**
-     * @title 修改字段状态
-     *
-     * @create 2019-11-4
-     * @author deatil
+     * 修改字段状态
      */
     public function setStatus() 
     {
@@ -291,9 +271,6 @@ class LformAttr extends LformBase
 
     /**
      * 排序
-     *
-     * @create 2019-11-7
-     * @author deatil
      */
     public function listorder()
     {
