@@ -6,6 +6,14 @@
 *  基于lake-admin后台管理框架的自定义表单插件
 
 
+### 安装使用
+
+*  composer安装 `composer require lake/lake-admin-form`
+*  后台 `本地模块->模块管理->本地安装` 上传模块或者手动将模块上传到 `addon` 目录
+*  手动放置模块或者上传模块请确保目录为 `lform/Service.php`
+*  最后在 `本地模块->模块管理->全部` 安装添加的模块
+
+
 ### 模块推荐
 
 | 名称 | 描述 |
