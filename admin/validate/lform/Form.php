@@ -22,8 +22,13 @@ class Form extends Validate
     );
     
     protected $scene = array(
-        'add'   => 'title, name',
-        'edit'   => 'title'
+        'add' => [
+            'title',
+            'name',
+        ],
+        'edit' => [
+            'title'
+        ]
     );
     
     protected function requireIn($value, $rule, $data)
