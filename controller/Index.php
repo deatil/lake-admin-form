@@ -195,7 +195,7 @@ class Index extends HomeBase
         
         $tablename = (new Datatable('lform_ext_'))->getTablename(strtolower($form['name']));
         
-        $result = db($tablename)->insert($data);
+        $result = Db::name($tablename)->insert($data);
         if ($result === false) {
             return $this->error('提交失败，请稍后重试！');
         }
