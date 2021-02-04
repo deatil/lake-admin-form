@@ -25,7 +25,9 @@ function lform_token($form_name = null) {
         return '';
     }
     
-    $csrf = token($form['check_token']);
+    $token = token($form['check_token']);
+    
+    $csrf = '<input type="hidden" name="'.$form['check_token'].'" value="'.$token.'" />';
     
     return $csrf;
 }

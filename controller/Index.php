@@ -3,7 +3,7 @@
 namespace app\lform\controller;
 
 use think\facade\Db;
-use think\facade\Hook;
+use think\facade\Event;
 use think\facade\Session;
 use think\facade\View;
 
@@ -42,8 +42,8 @@ class Index extends HomeBase
             return $this->error('非法请求！');
         }
         
-        // 添加检测hook
-        Hook::listen('lform_post_start');
+        // 添加检测Event
+        Event::trigger('lform_post_start');
         
         $csrf = lform_token_check($form_name);
         if (!$csrf) {
@@ -137,14 +137,14 @@ class Index extends HomeBase
                     && !empty($data[$name]) 
                 ) {
                     if (!empty($fieldRule[$type]['pattern'])) {
-                        if (!call_user_func_array(['Validate', $fieldRule[$type]['vrule']], [
+                        if (!call_user_func_array(['\\think\facade\\Validate', $fieldRule[$type]['vrule']], [
                             $data[$name],
                             $fieldRule[$type]['pattern']
                         ])) {
                             return $this->error("'" . $title . "'格式错误~");
                         }
                     } else {
-                        if (!call_user_func_array(['Validate', $fieldRule[$type]['vrule']], [
+                        if (!call_user_func_array(['\\think\facade\\Validate', $fieldRule[$type]['vrule']], [
                             $data[$name]
                         ])) {
                             return $this->error("'" . $title . "'格式错误~");
@@ -172,14 +172,14 @@ class Index extends HomeBase
                             }
                             
                             if (!empty($item['validate_rule'])) {
-                                if (!call_user_func_array(['Validate', $item['validate_type']], [
+                                if (!call_user_func_array(['\\think\facade\\Validate', $item['validate_type']], [
                                     $data[$name],
                                     $item['validate_rule']
                                 ])) {
                                     return $this->error($errorInfo);
                                 }
                             } else {
-                                if (!call_user_func_array(['Validate', $item['validate_type']], [
+                                if (!call_user_func_array(['\\think\facade\\Validate', $item['validate_type']], [
                                     $data[$name]
                                 ])) {
                                     return $this->error($errorInfo);
